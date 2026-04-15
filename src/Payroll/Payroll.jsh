@@ -104,6 +104,7 @@ public class ReadData {
 
 String outp;
 // print out the data in the list. See `toString()` method above.
+System.out.println("Name,Total Pay,Taxes, Net Pay");
 for (Timecard t : input_data) {
     outp = t.payrollString();
     System.out.println(outp);
