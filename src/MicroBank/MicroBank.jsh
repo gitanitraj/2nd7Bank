@@ -6,6 +6,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner; 
 
 class MicroBank {
     // input file is "input.data"
@@ -37,26 +38,37 @@ class MicroBank {
                 mb.balance += t.amount;
             }
         }
-        System.out.println(String.format("Final Balance: $%.2f", mb.balance));
-    }
+        Scanner scanner = new Scanner(System.in);
+        String userChoice = "";
 
-    ArrayList<Transaction> readData(String filename) {
-        ArrayList<Transaction> list = new ArrayList<>();
-        // open a text file and read each line, putting the fields into a Transaction
-        // object.
-        try {
-            Files.lines(Paths.get(filename))
-                    .forEach(line -> {
-                        String[] parts = line.split(", ");
-                        if (parts.length == 3) {
-                            list.add(new Transaction(parts[0], parts[1], Double.parseDouble(parts[2])));
-                        }
-                    });
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
+        while (!userChoice.equals("quit")) {
+            System.out.println("\nCurrent Balance: $" + String.format("%.2f", mb.balance));
+            System.out.println("Type 'deposit', 'withdrawal', or 'quit'");
+            userChoice = scanner.nextLine().toLowerCase();
+
+            if (userChoice.equals("deposit") || userChoice.equals("withdrawal")) {
+                System.out.println("Enter amount:");
+            try {
+                double amount = scanner.nextDouble();
+                scanner.nextLine();
+                if (userChoice.equals("deposit")) {
+                mb.balance += amount;
+                System.out.println("Deposited $" + amount);
+            } else {
+                mb.balance -= amount;
+                System.out.println("Withdrew $" + amount);
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR " + e);
+            scanner.nextLine();
         }
-        return list;
+    } else if (!userChoice.equals("quit")) {
+        System.out.println("Invalid option. Select again.");
     }
+}
+
+System.out.println(String.format("Final Balance: $%.2f", mb.balance));
+scanner.close();
 }
 
 MicroBank.main(null);
