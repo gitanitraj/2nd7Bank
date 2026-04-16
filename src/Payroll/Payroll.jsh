@@ -105,14 +105,16 @@ public class ReadData {
 String outp;
 // print out the data in the list. See `toString()` method above.
 System.out.println("Name,Total Pay,Taxes, Net Pay");
-for (Timecard t : input_data) {
-    outp = t.payrollString();
+for (Timecard tc : input_data) {
+    outp = tc.payrollString();
     System.out.println(outp);
+}
 
 // TOTALS GO HERE
 double totalGross = 0;
 double totalTaxes = 0;
 double totalNet = 0;
+double totalPayroll = 0;
 
 for (Timecard t : input_data) {
     double gross = t.HoursWorked * t.HourlyRate;
@@ -123,6 +125,7 @@ for (Timecard t : input_data) {
     totalNet += net;
 }
 
+System.out.println("----------------------------------");
 System.out.println(String.format("Total Gross Pay: $%,.2f", totalGross));
 System.out.println(String.format("Total Taxes:     $%,.2f", totalTaxes));
 System.out.println(String.format("Total Net Pay:   $%,.2f", totalNet));
