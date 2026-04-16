@@ -108,4 +108,24 @@ System.out.println("Name,Total Pay,Taxes, Net Pay");
 for (Timecard t : input_data) {
     outp = t.payrollString();
     System.out.println(outp);
+
+// TOTALS GO HERE
+double totalGross = 0;
+double totalTaxes = 0;
+double totalNet = 0;
+
+for (Timecard t : input_data) {
+    double gross = t.HoursWorked * t.HourlyRate;
+    double taxes = gross * 0.2;
+    double net = gross - taxes;
+    totalGross += gross;
+    totalTaxes += taxes;
+    totalNet += net;
 }
+
+System.out.println(String.format("Total Gross Pay: $%,.2f", totalGross));
+System.out.println(String.format("Total Taxes:     $%,.2f", totalTaxes));
+System.out.println(String.format("Total Net Pay:   $%,.2f", totalNet));
+
+}
+
